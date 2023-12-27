@@ -384,6 +384,8 @@ StringRef MCSymbolRefExpr::getVariantKindName(VariantKind Kind) {
   case VK_VE_TLS_GD_LO32: return "tls_gd_lo";
   case VK_VE_TPOFF_HI32: return "tpoff_hi";
   case VK_VE_TPOFF_LO32: return "tpoff_lo";
+  case VK_MMIPS_LO: return "mmips_lo";
+  case VK_MMIPS_HI: return "mmips_hi";
   }
   llvm_unreachable("Invalid variant kind");
 }
