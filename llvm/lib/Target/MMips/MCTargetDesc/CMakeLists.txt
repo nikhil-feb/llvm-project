@@ -1,0 +1,2 @@
+add_llvm_library(LLVMMMipsDesc
+MMipsMCTargetDesc.cpp)
