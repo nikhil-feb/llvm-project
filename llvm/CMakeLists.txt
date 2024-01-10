@@ -446,6 +446,7 @@ set(LLVM_ALL_TARGETS
   WebAssembly
   X86
   XCore
+  ToyISA
   )
 
 set(LLVM_ALL_EXPERIMENTAL_TARGETS

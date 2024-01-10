@@ -357,7 +357,9 @@ public:
     VK_VE_TPOFF_LO32,  // symbol@tpoff_lo
 
     VK_TPREL,
-    VK_DTPREL
+    VK_DTPREL,
+    VK_TOYISA_LO,
+    VK_TOYISA_HI
   };
 
 private:
