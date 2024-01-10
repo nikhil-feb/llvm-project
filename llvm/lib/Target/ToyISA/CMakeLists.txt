@@ -15,19 +15,7 @@ tablegen(LLVM ToyISAGenSubtargetInfo.inc -gen-subtarget)
 add_public_tablegen_target(ToyISACommonTableGen)
 
 add_llvm_target(ToyISACodeGen
-  # DelaySlotFiller.cpp
-  # LeonPasses.cpp
-  # ToyISAAsmPrinter.cpp
-  # ToyISAInstrInfo.cpp
-  # ToyISAISelDAGToDAG.cpp
-  # ToyISAISelLowering.cpp
-  # ToyISAFrameLowering.cpp
-  # ToyISAMachineFunctionInfo.cpp
-  # ToyISARegisterInfo.cpp
-  # ToyISASubtarget.cpp
   ToyISATargetMachine.cpp
-  # ToyISAMCInstLower.cpp
-  # ToyISATargetObjectFile.cpp
 
   LINK_COMPONENTS
   AsmPrinter
@@ -36,8 +24,6 @@ add_llvm_target(ToyISACodeGen
   Core
   MC
   SelectionDAG
-  ToyISADesc
-  ToyISAInfo
   Support
   Target
   TargetParser
@@ -46,7 +32,3 @@ add_llvm_target(ToyISACodeGen
   ToyISA
   )
 
-# add_subdirectory(AsmParser)
-# add_subdirectory(Disassembler)
-# add_subdirectory(MCTargetDesc)
-# add_subdirectory(TargetInfo)
