@@ -1,4 +1,4 @@
-//===-- SparcCallingConv.td - Calling Conventions Sparc ----*- tablegen -*-===//
+//===-- ToyISACallingConv.td - Calling Conventions ToyISA ----*- tablegen -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,40 +6,40 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This describes the calling conventions for the Sparc architectures.
+// This describes the calling conventions for the ToyISA architectures.
 //
 //===----------------------------------------------------------------------===//
 
 //===----------------------------------------------------------------------===//
-// SPARC v8 32-bit.
+// ToyISA v8 32-bit.
 //===----------------------------------------------------------------------===//
 
-def CC_Sparc32 : CallingConv<[
+def CC_ToyISA32 : CallingConv<[
   // Custom assign SRet to [sp+64].
-  CCIfSRet<CCCustom<"CC_Sparc_Assign_SRet">>,
+  CCIfSRet<CCCustom<"CC_ToyISA_Assign_SRet">>,
   // i32 f32 arguments get passed in integer registers if there is space.
   CCIfType<[i32, f32], CCAssignToReg<[I0, I1, I2, I3, I4, I5]>>,
   // f64 arguments are split and passed through registers or through stack.
-  CCIfType<[f64], CCCustom<"CC_Sparc_Assign_Split_64">>,
+  CCIfType<[f64], CCCustom<"CC_ToyISA_Assign_Split_64">>,
   // As are v2i32 arguments (this would be the default behavior for
   // v2i32 if it wasn't allocated to the IntPair register-class)
-  CCIfType<[v2i32], CCCustom<"CC_Sparc_Assign_Split_64">>,
+  CCIfType<[v2i32], CCCustom<"CC_ToyISA_Assign_Split_64">>,
 
 
   // Alternatively, they are assigned to the stack in 4-byte aligned units.
   CCAssignToStack<4, 4>
 ]>;
 
-def RetCC_Sparc32 : CallingConv<[
+def RetCC_ToyISA32 : CallingConv<[
   CCIfType<[i32], CCAssignToReg<[I0, I1, I2, I3, I4, I5]>>,
   CCIfType<[f32], CCAssignToReg<[F0, F1, F2, F3]>>,
   CCIfType<[f64], CCAssignToReg<[D0, D1]>>,
-  CCIfType<[v2i32], CCCustom<"CC_Sparc_Assign_Ret_Split_64">>
+  CCIfType<[v2i32], CCCustom<"CC_ToyISA_Assign_Ret_Split_64">>
 ]>;
 
 
 //===----------------------------------------------------------------------===//
-// SPARC v9 64-bit.
+// ToyISA v9 64-bit.
 //===----------------------------------------------------------------------===//
 //
 // The 64-bit ABI conceptually assigns all function arguments to a parameter
@@ -108,31 +108,31 @@ def RetCC_Sparc32 : CallingConv<[
 // struct up to 32 bytes in size can be returned in registers.
 
 // Function arguments AND most return values.
-def CC_Sparc64 : CallingConv<[
+def CC_ToyISA64 : CallingConv<[
   // The frontend uses the inreg flag to indicate i32 and float arguments from
   // structs. These arguments are not promoted to 64 bits, but they can still
   // be assigned to integer and float registers.
-  CCIfInReg<CCIfType<[i32, f32], CCCustom<"CC_Sparc64_Half">>>,
+  CCIfInReg<CCIfType<[i32, f32], CCCustom<"CC_ToyISA64_Half">>>,
 
   // All integers are promoted to i64 by the caller.
   CCIfType<[i32], CCPromoteToType<i64>>,
 
   // Custom assignment is required because stack space is reserved for all
   // arguments whether they are passed in registers or not.
-  CCCustom<"CC_Sparc64_Full">
+  CCCustom<"CC_ToyISA64_Full">
 ]>;
 
-def RetCC_Sparc64 : CallingConv<[
+def RetCC_ToyISA64 : CallingConv<[
   // A single f32 return value always goes in %f0. The ABI doesn't specify what
   // happens to multiple f32 return values outside a struct.
-  CCIfType<[f32], CCCustom<"RetCC_Sparc64_Half">>,
+  CCIfType<[f32], CCCustom<"RetCC_ToyISA64_Half">>,
 
   // Otherwise, return values are passed exactly like arguments, except that
   // returns that are too big to fit into the registers is passed as an sret
   // instead.
-  CCIfInReg<CCIfType<[i32, f32], CCCustom<"RetCC_Sparc64_Half">>>,
+  CCIfInReg<CCIfType<[i32, f32], CCCustom<"RetCC_ToyISA64_Half">>>,
   CCIfType<[i32], CCPromoteToType<i64>>,
-  CCCustom<"RetCC_Sparc64_Full">
+  CCCustom<"RetCC_ToyISA64_Full">
 ]>;
 
 // Callee-saved registers are handled by the register window mechanism.

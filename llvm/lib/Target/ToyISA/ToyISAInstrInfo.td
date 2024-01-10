@@ -1,4 +1,4 @@
-//===-- SparcInstrInfo.td - Target Description for Sparc Target -----------===//
+//===-- ToyISAInstrInfo.td - Target Description for ToyISA Target -----------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file describes the Sparc instructions in TableGen format.
+// This file describes the ToyISA instructions in TableGen format.
 //
 //===----------------------------------------------------------------------===//
 
@@ -14,7 +14,7 @@
 // Instruction format superclass
 //===----------------------------------------------------------------------===//
 
-include "SparcInstrFormats.td"
+include "ToyISAInstrFormats.td"
 
 //===----------------------------------------------------------------------===//
 // Feature predicates.
@@ -128,12 +128,12 @@ def shift_imm6 : Operand<i32> {
 }
 
 // Address operands
-def SparcMEMrrAsmOperand : AsmOperandClass {
+def ToyISAMEMrrAsmOperand : AsmOperandClass {
   let Name = "MEMrr";
   let ParserMethod = "parseMEMOperand";
 }
 
-def SparcMEMriAsmOperand : AsmOperandClass {
+def ToyISAMEMriAsmOperand : AsmOperandClass {
   let Name = "MEMri";
   let ParserMethod = "parseMEMOperand";
 }
@@ -141,16 +141,16 @@ def SparcMEMriAsmOperand : AsmOperandClass {
 def MEMrr : Operand<iPTR> {
   let PrintMethod = "printMemOperand";
   let MIOperandInfo = (ops ptr_rc, ptr_rc);
-  let ParserMatchClass = SparcMEMrrAsmOperand;
+  let ParserMatchClass = ToyISAMEMrrAsmOperand;
 }
 def MEMri : Operand<iPTR> {
   let PrintMethod = "printMemOperand";
   let MIOperandInfo = (ops ptr_rc, i32imm);
-  let ParserMatchClass = SparcMEMriAsmOperand;
+  let ParserMatchClass = ToyISAMEMriAsmOperand;
 }
 
 // Represents a tail relocation operand for instructions such as add, ld, call.
-class SparcTailRelocSymAsmOperand<string Kind> : AsmOperandClass {
+class ToyISATailRelocSymAsmOperand<string Kind> : AsmOperandClass {
   let Name = "TailRelocSym" # Kind;
   let RenderMethod = "addTailRelocSymOperands";
   let PredicateMethod = "isTailRelocSym";
@@ -158,29 +158,29 @@ class SparcTailRelocSymAsmOperand<string Kind> : AsmOperandClass {
 }
 
 def TailRelocSymGOTLoad : Operand<iPTR> {
-  let ParserMatchClass = SparcTailRelocSymAsmOperand<"Load_GOT">;
+  let ParserMatchClass = ToyISATailRelocSymAsmOperand<"Load_GOT">;
 }
 
 def TailRelocSymTLSAdd : Operand<iPTR> {
-  let ParserMatchClass = SparcTailRelocSymAsmOperand<"Add_TLS">;
+  let ParserMatchClass = ToyISATailRelocSymAsmOperand<"Add_TLS">;
 }
 
 def TailRelocSymTLSLoad : Operand<iPTR> {
-  let ParserMatchClass = SparcTailRelocSymAsmOperand<"Load_TLS">;
+  let ParserMatchClass = ToyISATailRelocSymAsmOperand<"Load_TLS">;
 }
 
 def TailRelocSymTLSCall : Operand<iPTR> {
-  let ParserMatchClass = SparcTailRelocSymAsmOperand<"Call_TLS">;
+  let ParserMatchClass = ToyISATailRelocSymAsmOperand<"Call_TLS">;
 }
 
-def SparcMembarTagAsmOperand : AsmOperandClass {
+def ToyISAMembarTagAsmOperand : AsmOperandClass {
   let Name = "MembarTag";
   let ParserMethod = "parseMembarTag";
 }
 
 def MembarTag : Operand<i32> {
   let PrintMethod = "printMembarTag";
-  let ParserMatchClass = SparcMembarTagAsmOperand;
+  let ParserMatchClass = ToyISAMembarTagAsmOperand;
 }
 
 // Branch targets have OtherVT type.
@@ -196,7 +196,7 @@ def bprtarget16 : Operand<OtherVT> {
   let EncoderMethod = "getBranchOnRegTargetOpValue";
 }
 
-def SparcCallTargetAsmOperand : AsmOperandClass {
+def ToyISACallTargetAsmOperand : AsmOperandClass {
   let Name = "CallTarget";
   let ParserMethod = "parseCallTarget";
 }
@@ -204,7 +204,7 @@ def SparcCallTargetAsmOperand : AsmOperandClass {
 def calltarget : Operand<i32> {
   let EncoderMethod = "getCallTargetOpValue";
   let DecoderMethod = "DecodeCall";
-  let ParserMatchClass = SparcCallTargetAsmOperand;
+  let ParserMatchClass = ToyISACallTargetAsmOperand;
 }
 
 def simm13Op : Operand<i32> {
@@ -310,7 +310,7 @@ def getPCX        : Operand<iPTR> {
 }
 
 //===----------------------------------------------------------------------===//
-// SPARC Flag Conditions
+// ToyISA Flag Conditions
 //===----------------------------------------------------------------------===//
 
 // Note that these values must be kept in sync with the CCOp::CondCode enum
@@ -436,7 +436,7 @@ multiclass LoadA<string OpcStr, bits<6> Op3Val, bits<6> LoadAOp3Val,
 
 // The LDSTUB instruction is supported for asm only.
 // It is unlikely that general-purpose code could make use of it.
-// CAS is preferred for sparc v9.
+// CAS is preferred for ToyISA v9.
 def LDSTUBrr : F3_1<3, 0b001101, (outs IntRegs:$rd), (ins (MEMrr $rs1, $rs2):$addr),
                     "ldstub [$addr], $rd", []>;
 def LDSTUBri : F3_2<3, 0b001101, (outs IntRegs:$rd), (ins (MEMri $rs1, $simm13):$addr),
@@ -841,7 +841,7 @@ defm SAVE    : F3_12np<"save"   , 0b111100>;
 defm RESTORE : F3_12np<"restore", 0b111101>;
 
 // Section B.21 - Branch on Integer Condition Codes Instructions, p. 119
-// Section A.7 - Branch on Integer Condition Codes with Prediction (SPARC v9)
+// Section A.7 - Branch on Integer Condition Codes with Prediction (ToyISA v9)
 
 let isBranch = 1, isTerminator = 1, hasDelaySlot = 1, isBarrier = 1 in {
 // unconditional branch class.
@@ -1066,7 +1066,7 @@ let isReturn = 1, isTerminator = 1, hasDelaySlot = 1,
 
 // Section B.27 - Trap on Integer Condition Codes Instruction
 // conditional branch class:
-let DecoderNamespace = "SparcV8", hasSideEffects = 1, Uses = [ICC], cc = 0b00 in
+let DecoderNamespace = "ToyISAV8", hasSideEffects = 1, Uses = [ICC], cc = 0b00 in
 {
   def TRAPrr : TRAPSPrr<0b111010,
                         (outs), (ins IntRegs:$rs1, IntRegs:$rs2, CCOp:$cond),
@@ -1089,7 +1089,7 @@ multiclass TRAP<string regStr> {
                     []>;
 }
 
-let DecoderNamespace = "SparcV9", Predicates = [HasV9], hasSideEffects = 1, Uses = [ICC], cc = 0b00 in
+let DecoderNamespace = "ToyISAV9", Predicates = [HasV9], hasSideEffects = 1, Uses = [ICC], cc = 0b00 in
   defm TICC : TRAP<"%icc">;
 
 
@@ -1105,7 +1105,7 @@ let rs2 = 0 in
                  (outs IntRegs:$rd), (ins ASRRegs:$rs1),
                  "rd $rs1, $rd", []>;
 
-// PSR, WIM, and TBR don't exist on the SparcV9, only the V8.
+// PSR, WIM, and TBR don't exist on the ToyISAV9, only the V8.
 let Predicates = [HasNoV9] in {
   let rs2 = 0, rs1 = 0, Uses=[PSR] in
     def RDPSR : F3_1<2, 0b101001,
@@ -1123,7 +1123,7 @@ let Predicates = [HasNoV9] in {
 		     "rd %tbr, $rd", []>;
 }
 
-// PC don't exist on the SparcV8, only the V9.
+// PC don't exist on the ToyISAV8, only the V9.
 let Predicates = [HasV9] in {
   let rs2 = 0, rs1 = 5 in
     def RDPC : F3_1<2, 0b101000,
@@ -1139,7 +1139,7 @@ def WRASRri : F3_2<2, 0b110000,
                  (outs ASRRegs:$rd), (ins IntRegs:$rs1, simm13Op:$simm13),
                  "wr $rs1, $simm13, $rd", []>;
 
-// PSR, WIM, and TBR don't exist on the SparcV9, only the V8.
+// PSR, WIM, and TBR don't exist on the ToyISAV9, only the V8.
 let Predicates = [HasNoV9] in {
   let Defs = [PSR], rd=0 in {
     def WRPSRrr : F3_1<2, 0b110001,
@@ -1386,7 +1386,7 @@ def FDIVQ  : F3_3<2, 0b110100, 0b001001111,
 // Floating-point Compare Instructions, p. 148
 // Note: the 2nd template arg is different for these guys.
 // Note 2: the result of a FCMP is not available until the 2nd cycle
-// after the instr is retired, but there is no interlock in Sparc V8.
+// after the instr is retired, but there is no interlock in ToyISA V8.
 // This behavior is modeled with a forced noop after the instruction in
 // DelaySlotFiller.
 
@@ -1408,11 +1408,11 @@ let Defs = [FCC0], rd = 0, isCodeGenOnly = 1 in {
                    Requires<[HasHardQuad]>;
 }
 
-// A.13 Floating-Point Compare (SPARC v9)
+// A.13 Floating-Point Compare (ToyISA v9)
 // Note that these always write to %fcc0 instead of having its destination
 // allocated automatically.
 // This avoids complications with the scheduler sometimes wanting to spill
-// the contents of an FCC, since SPARC v9 doesn't have facilities to spill
+// the contents of an FCC, since ToyISA v9 doesn't have facilities to spill
 // an individual FCC.
 
 let Predicates = [HasV9], Defs = [FCC0], rd = 0, isCodeGenOnly = 1 in {
@@ -1669,7 +1669,7 @@ let Predicates = [HasV9], rd = 15, rs1 = 0b00000 in
 
 // The CAS instruction, unlike other instructions, only comes in a
 // form which requires an ASI be provided. The ASI value hardcoded
-// here is ASI_PRIMARY, the default unprivileged ASI for SparcV9.
+// here is ASI_PRIMARY, the default unprivileged ASI for ToyISAV9.
 let Predicates = [HasV9], Constraints = "$swap = $rd", asi = 0b10000000 in
   def CASrr: F3_1_asi<3, 0b111100,
                 (outs IntRegs:$rd), (ins IntRegs:$rs1, IntRegs:$rs2,
@@ -1898,6 +1898,6 @@ def : Pat<(build_vector (i32 IntRegs:$a1), (i32 IntRegs:$a2)),
             (i32 IntRegs:$a2), sub_odd)>;
 
 
-include "SparcInstr64Bit.td"
-include "SparcInstrVIS.td"
-include "SparcInstrAliases.td"
+include "ToyISAInstr64Bit.td"
+include "ToyISAInstrVIS.td"
+include "ToyISAInstrAliases.td"

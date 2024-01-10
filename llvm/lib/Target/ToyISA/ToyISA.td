@@ -1,4 +1,4 @@
-//===-- Sparc.td - Describe the Sparc Target Machine -------*- tablegen -*-===//
+//===-- ToyISA.td - Describe the ToyISA Target Machine -------*- tablegen -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -16,7 +16,7 @@
 include "llvm/Target/Target.td"
 
 //===----------------------------------------------------------------------===//
-// SPARC Subtarget features.
+// ToyISA Subtarget features.
 //
 
 def FeatureSoftMulDiv
@@ -32,13 +32,13 @@ def FeatureNoFMULS
 
 def FeatureV9
   : SubtargetFeature<"v9", "IsV9", "true",
-                     "Enable SPARC-V9 instructions">;
+                     "Enable ToyISA-V9 instructions">;
 def FeatureV8Deprecated
   : SubtargetFeature<"deprecated-v8", "UseV8DeprecatedInsts", "true",
                      "Enable deprecated V8 instructions in V9 mode">;
 def FeatureVIS
   : SubtargetFeature<"vis", "IsVIS", "true",
-                     "Enable UltraSPARC Visual Instruction Set extensions">;
+                     "Enable UltraToyISA Visual Instruction Set extensions">;
 def FeatureVIS2
   : SubtargetFeature<"vis2", "IsVIS2", "true",
                      "Enable Visual Instruction Set extensions II">;
@@ -69,19 +69,19 @@ include "LeonFeatures.td"
 // Register File, Calling Conv, Instruction Descriptions
 //===----------------------------------------------------------------------===//
 
-include "SparcRegisterInfo.td"
-include "SparcCallingConv.td"
-include "SparcSchedule.td"
-include "SparcInstrInfo.td"
+include "ToyISARegisterInfo.td"
+include "ToyISACallingConv.td"
+include "ToyISASchedule.td"
+include "ToyISAInstrInfo.td"
 
-def SparcInstrInfo : InstrInfo;
+def ToyISAInstrInfo : InstrInfo;
 
-def SparcAsmParser : AsmParser {
+def ToyISAAsmParser : AsmParser {
   bit ShouldEmitMatchRegisterName = 0;
 }
 
 //===----------------------------------------------------------------------===//
-// SPARC processors supported.
+// ToyISA processors supported.
 //===----------------------------------------------------------------------===//
 
 class Proc<string Name, list<SubtargetFeature> Features>
@@ -90,12 +90,12 @@ class Proc<string Name, list<SubtargetFeature> Features>
 def : Proc<"generic",         []>;
 def : Proc<"v7",              [FeatureSoftMulDiv, FeatureNoFSMULD]>;
 def : Proc<"v8",              []>;
-def : Proc<"supersparc",      []>;
-def : Proc<"sparclite",       []>;
+def : Proc<"superToyISA",      []>;
+def : Proc<"ToyISAlite",       []>;
 def : Proc<"f934",            []>;
-def : Proc<"hypersparc",      []>;
-def : Proc<"sparclite86x",    []>;
-def : Proc<"sparclet",        []>;
+def : Proc<"hyperToyISA",      []>;
+def : Proc<"ToyISAlite86x",    []>;
+def : Proc<"ToyISAlet",        []>;
 def : Proc<"tsc701",          []>;
 def : Proc<"myriad2",         [FeatureLeon, LeonCASA]>;
 def : Proc<"myriad2.1",       [FeatureLeon, LeonCASA]>;
@@ -113,8 +113,8 @@ def : Proc<"ma2480",          [FeatureLeon, LeonCASA]>;
 def : Proc<"ma2485",          [FeatureLeon, LeonCASA]>;
 def : Proc<"ma2x8x",          [FeatureLeon, LeonCASA]>;
 def : Proc<"v9",              [FeatureV9]>;
-def : Proc<"ultrasparc",      [FeatureV9, FeatureV8Deprecated, FeatureVIS]>;
-def : Proc<"ultrasparc3",     [FeatureV9, FeatureV8Deprecated, FeatureVIS,
+def : Proc<"ultraToyISA",      [FeatureV9, FeatureV8Deprecated, FeatureVIS]>;
+def : Proc<"ultraToyISA3",     [FeatureV9, FeatureV8Deprecated, FeatureVIS,
                                FeatureVIS2]>;
 def : Proc<"niagara",         [FeatureV9, FeatureV8Deprecated, FeatureVIS,
                                FeatureVIS2]>;
@@ -168,16 +168,16 @@ def : Processor<"gr740", LEON4Itineraries,
 // Declare the target which we are implementing
 //===----------------------------------------------------------------------===//
 
-def SparcAsmWriter : AsmWriter {
+def ToyISAAsmWriter : AsmWriter {
   string AsmWriterClassName  = "InstPrinter";
   int PassSubtarget = 1;
   int Variant = 0;
 }
 
-def Sparc : Target {
+def ToyISA : Target {
   // Pull in Instruction Info:
-  let InstructionSet = SparcInstrInfo;
-  let AssemblyParsers  = [SparcAsmParser];
-  let AssemblyWriters = [SparcAsmWriter];
+  let InstructionSet = ToyISAInstrInfo;
+  let AssemblyParsers  = [ToyISAAsmParser];
+  let AssemblyWriters = [ToyISAAsmWriter];
   let AllowRegisterRenaming = 1;
 }
