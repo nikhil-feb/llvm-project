@@ -1,4 +1,4 @@
-//===-- SparcRegisterInfo.h - Sparc Register Information Impl ---*- C++ -*-===//
+//===-- ToyISARegisterInfo.h - ToyISA Register Information Impl ---*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,21 +6,21 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file contains the Sparc implementation of the TargetRegisterInfo class.
+// This file contains the ToyISA implementation of the TargetRegisterInfo class.
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SPARC_SPARCREGISTERINFO_H
-#define LLVM_LIB_TARGET_SPARC_SPARCREGISTERINFO_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISAREGISTERINFO_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISAREGISTERINFO_H
 
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 
 #define GET_REGINFO_HEADER
-#include "SparcGenRegisterInfo.inc"
+//#include "ToyISAGenRegisterInfo.inc"
 
 namespace llvm {
-struct SparcRegisterInfo : public SparcGenRegisterInfo {
-  SparcRegisterInfo();
+struct ToyISARegisterInfo : public ToyISAGenRegisterInfo {
+  ToyISARegisterInfo();
 
   /// Code Generation virtual methods...
   const MCPhysReg *getCalleeSavedRegs(const MachineFunction *MF) const override;

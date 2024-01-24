@@ -1,4 +1,4 @@
-//===- SparcMachineFunctionInfo.h - Sparc Machine Function Info -*- C++ -*-===//
+//===- ToyISAMachineFunctionInfo.h - ToyISA Machine Function Info -*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,17 +6,17 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file declares  Sparc specific per-machine-function information.
+// This file declares  ToyISA specific per-machine-function information.
 //
 //===----------------------------------------------------------------------===//
-#ifndef LLVM_LIB_TARGET_SPARC_SPARCMACHINEFUNCTIONINFO_H
-#define LLVM_LIB_TARGET_SPARC_SPARCMACHINEFUNCTIONINFO_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISAMACHINEFUNCTIONINFO_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISAMACHINEFUNCTIONINFO_H
 
 #include "llvm/CodeGen/MachineFunction.h"
 
 namespace llvm {
 
-  class SparcMachineFunctionInfo : public MachineFunctionInfo {
+  class ToyISAMachineFunctionInfo : public MachineFunctionInfo {
     virtual void anchor();
   private:
     Register GlobalBaseReg;
@@ -31,10 +31,10 @@ namespace llvm {
     /// IsLeafProc - True if the function is a leaf procedure.
     bool IsLeafProc;
   public:
-    SparcMachineFunctionInfo()
+    ToyISAMachineFunctionInfo()
       : GlobalBaseReg(0), VarArgsFrameOffset(0), SRetReturnReg(0),
         IsLeafProc(false) {}
-    SparcMachineFunctionInfo(const Function &F, const TargetSubtargetInfo *STI)
+    ToyISAMachineFunctionInfo(const Function &F, const TargetSubtargetInfo *STI)
         : GlobalBaseReg(0), VarArgsFrameOffset(0), SRetReturnReg(0),
           IsLeafProc(false) {}
 

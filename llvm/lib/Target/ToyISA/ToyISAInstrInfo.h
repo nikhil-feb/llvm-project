@@ -1,4 +1,4 @@
-//===-- SparcInstrInfo.h - Sparc Instruction Information --------*- C++ -*-===//
+//===-- ToyISAInstrInfo.h - ToyISA Instruction Information --------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,22 +6,22 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file contains the Sparc implementation of the TargetInstrInfo class.
+// This file contains the ToyISA implementation of the TargetInstrInfo class.
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SPARC_SPARCINSTRINFO_H
-#define LLVM_LIB_TARGET_SPARC_SPARCINSTRINFO_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISAINSTRINFO_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISAINSTRINFO_H
 
-#include "SparcRegisterInfo.h"
+#include "ToyISARegisterInfo.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 
 #define GET_INSTRINFO_HEADER
-#include "SparcGenInstrInfo.inc"
+#include "ToyISAGenInstrInfo.inc"
 
 namespace llvm {
 
-class SparcSubtarget;
+class ToyISASubtarget;
 
 /// SPII - This namespace holds all of the target specific flags that
 /// instruction info tracks.
@@ -35,18 +35,18 @@ namespace SPII {
   };
 }
 
-class SparcInstrInfo : public SparcGenInstrInfo {
-  const SparcRegisterInfo RI;
-  const SparcSubtarget& Subtarget;
+class ToyISAInstrInfo : public ToyISAGenInstrInfo {
+  const ToyISARegisterInfo RI;
+  const ToyISASubtarget& Subtarget;
   virtual void anchor();
 public:
-  explicit SparcInstrInfo(SparcSubtarget &ST);
+  explicit ToyISAInstrInfo(ToyISASubtarget &ST);
 
   /// getRegisterInfo - TargetInstrInfo is a superset of MRegister info.  As
   /// such, whenever a client has an instance of instruction info, it should
   /// always be able to get register info as well (through this method).
   ///
-  const SparcRegisterInfo &getRegisterInfo() const { return RI; }
+  const ToyISARegisterInfo &getRegisterInfo() const { return RI; }
 
   /// isLoadFromStackSlot - If the specified machine instruction is a direct
   /// load from a stack slot, return the virtual or physical register number of

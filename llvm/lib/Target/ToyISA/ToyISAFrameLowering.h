@@ -1,4 +1,4 @@
-//===-- SparcFrameLowering.h - Define frame lowering for Sparc --*- C++ -*-===//
+//===-- ToyISAFrameLowering.h - Define frame lowering for ToyISA --*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -10,19 +10,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SPARC_SPARCFRAMELOWERING_H
-#define LLVM_LIB_TARGET_SPARC_SPARCFRAMELOWERING_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISAFRAMELOWERING_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISAFRAMELOWERING_H
 
-#include "Sparc.h"
+#include "ToyISA.h"
 #include "llvm/CodeGen/TargetFrameLowering.h"
 #include "llvm/Support/TypeSize.h"
 
 namespace llvm {
 
-class SparcSubtarget;
-class SparcFrameLowering : public TargetFrameLowering {
+class ToyISASubtarget;
+class ToyISAFrameLowering : public TargetFrameLowering {
 public:
-  explicit SparcFrameLowering(const SparcSubtarget &ST);
+  explicit ToyISAFrameLowering(const ToyISASubtarget &ST);
 
   /// emitProlog/emitEpilog - These methods insert prolog and epilog code into
   /// the function.

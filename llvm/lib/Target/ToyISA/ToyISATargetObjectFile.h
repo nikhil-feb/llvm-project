@@ -1,4 +1,4 @@
-//===-- SparcTargetObjectFile.h - Sparc Object Info -------------*- C++ -*-===//
+//===-- ToyISATargetObjectFile.h - ToyISA Object Info -------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SPARC_SPARCTARGETOBJECTFILE_H
-#define LLVM_LIB_TARGET_SPARC_SPARCTARGETOBJECTFILE_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISATARGETOBJECTFILE_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISATARGETOBJECTFILE_H
 
 #include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 
@@ -16,9 +16,9 @@ namespace llvm {
 class MCContext;
 class TargetMachine;
 
-class SparcELFTargetObjectFile : public TargetLoweringObjectFileELF {
+class ToyISAELFTargetObjectFile : public TargetLoweringObjectFileELF {
 public:
-  SparcELFTargetObjectFile() = default;
+  ToyISAELFTargetObjectFile() = default;
 
   void Initialize(MCContext &Ctx, const TargetMachine &TM) override;
 

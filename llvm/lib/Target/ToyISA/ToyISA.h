@@ -1,4 +1,4 @@
-//===-- Sparc.h - Top-level interface for Sparc representation --*- C++ -*-===//
+//===-- ToyISA.h - Top-level interface for ToyISA representation --*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -7,14 +7,14 @@
 //===----------------------------------------------------------------------===//
 //
 // This file contains the entry points for global functions defined in the LLVM
-// Sparc back-end.
+// ToyISA back-end.
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SPARC_SPARC_H
-#define LLVM_LIB_TARGET_SPARC_SPARC_H
+#ifndef LLVM_LIB_TARGET_ToyISA_ToyISA_H
+#define LLVM_LIB_TARGET_ToyISA_ToyISA_H
 
-#include "MCTargetDesc/SparcMCTargetDesc.h"
+#include "MCTargetDesc/ToyISAMCTargetDesc.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Target/TargetMachine.h"
 
@@ -24,18 +24,18 @@ class FunctionPass;
 class MCInst;
 class MachineInstr;
 class PassRegistry;
-class SparcTargetMachine;
+class ToyISATargetMachine;
 
-FunctionPass *createSparcISelDag(SparcTargetMachine &TM);
-FunctionPass *createSparcDelaySlotFillerPass();
+FunctionPass *createToyISAISelDag(ToyISATargetMachine &TM);
+FunctionPass *createToyISADelaySlotFillerPass();
 
-void LowerSparcMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+void LowerToyISAMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
                                     AsmPrinter &AP);
-void initializeSparcDAGToDAGISelPass(PassRegistry &);
+void initializeToyISADAGToDAGISelPass(PassRegistry &);
 } // namespace llvm
 
 namespace llvm {
-  // Enums corresponding to Sparc condition codes, both icc's and fcc's.  These
+  // Enums corresponding to ToyISA condition codes, both icc's and fcc's.  These
   // values must be kept in sync with the ones in the .td file.
   namespace SPCC {
   enum CondCodes {
@@ -102,7 +102,7 @@ namespace llvm {
   };
   }
 
-  inline static const char *SPARCCondCodeToString(SPCC::CondCodes CC) {
+  inline static const char *ToyISACondCodeToString(SPCC::CondCodes CC) {
     switch (CC) {
     case SPCC::ICC_A:   return "a";
     case SPCC::ICC_N:   return "n";
