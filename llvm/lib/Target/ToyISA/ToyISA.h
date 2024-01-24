@@ -14,7 +14,7 @@
 #ifndef LLVM_LIB_TARGET_ToyISA_ToyISA_H
 #define LLVM_LIB_TARGET_ToyISA_ToyISA_H
 
-#include "MCTargetDesc/ToyISAMCTargetDesc.h"
+//#include "MCTargetDesc/ToyISAMCTargetDesc.h"
 #include "llvm/Support/ErrorHandling.h"
 #include "llvm/Target/TargetMachine.h"
 

@@ -17,7 +17,7 @@
 #include "llvm/CodeGen/TargetInstrInfo.h"
 
 #define GET_INSTRINFO_HEADER
-#include "ToyISAGenInstrInfo.inc"
+//#include "ToyISAGenInstrInfo.inc"
 
 namespace llvm {
 

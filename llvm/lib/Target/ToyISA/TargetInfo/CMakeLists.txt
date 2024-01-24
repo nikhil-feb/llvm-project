@@ -1,10 +1,10 @@
-add_llvm_component_library(LLVMSparcInfo
-  SparcTargetInfo.cpp
+add_llvm_component_library(LLVMToyISAInfo
+  ToyISATargetInfo.cpp
 
   LINK_COMPONENTS
   MC
   Support
 
   ADD_TO_COMPONENT
-  Sparc
+  ToyISA
   )

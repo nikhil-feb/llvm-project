@@ -25,4 +25,4 @@ add_llvm_target(ToyISACodeGen
   ADD_TO_COMPONENT
   ToyISA
   )
-
+  add_subdirectory(TargetInfo)
