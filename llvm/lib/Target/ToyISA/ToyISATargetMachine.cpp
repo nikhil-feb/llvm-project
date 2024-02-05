@@ -37,7 +37,7 @@ static cl::opt<bool>
 
 static std::string computeDataLayout(const Triple &T, bool is64Bit) {
   // ToyISA is typically big endian, but some are little.
-  std::string Ret = T.getArch() == Triple::ToyISAel ? "e" : "E";
+  std::string Ret = T.getArch() == Triple::toyisa ? "e" : "E";
   Ret += "-m:e";
 
   // Some ABIs have 32bit pointers.
