@@ -16,7 +16,7 @@
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 
 #define GET_REGINFO_HEADER
-//#include "ToyISAGenRegisterInfo.inc"
+#include "ToyISAGenRegisterInfo.inc"
 
 namespace llvm {
 struct ToyISARegisterInfo : public ToyISAGenRegisterInfo {
