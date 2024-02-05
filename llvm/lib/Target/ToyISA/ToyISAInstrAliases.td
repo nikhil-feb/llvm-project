@@ -1,4 +1,4 @@
-//===-- SparcInstrAliases.td - Instruction Aliases for Sparc Target -------===//
+//===-- ToyISAInstrAliases.td - Instruction Aliases for ToyISA Target -------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 //
-// This file contains instruction aliases for Sparc.
+// This file contains instruction aliases for ToyISA.
 //===----------------------------------------------------------------------===//
 
 // Instruction aliases for conditional moves.
@@ -411,9 +411,9 @@ defm : reg_cond_alias<"gez",  0b111>;
 // non-alias form, except for the most obvious and clarifying aliases: cmp, jmp,
 // call, tst, ret, retl.
 
-// Note: cmp is handled in SparcInstrInfo.
+// Note: cmp is handled in ToyISAInstrInfo.
 //       jmp/call/ret/retl have special case handling for output in
-//       SparcInstPrinter.cpp
+//       ToyISAInstPrinter.cpp
 
 // jmp addr -> jmpl addr, %g0
 def : InstAlias<"jmp $addr", (JMPLrr G0, MEMrr:$addr), 0>;

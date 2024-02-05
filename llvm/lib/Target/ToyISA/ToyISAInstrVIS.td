@@ -1,4 +1,4 @@
-//===---- SparcInstrVIS.td - Visual Instruction Set extensions (VIS) -----===//
+//===---- ToyISAInstrVIS.td - Visual Instruction Set extensions (VIS) -----===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 //
 // This file contains instruction formats, definitions and patterns needed for
-// VIS, VIS II, VIS II instructions on SPARC.
+// VIS, VIS II, VIS II instructions on ToyISA.
 //===----------------------------------------------------------------------===//
 
 // VIS Instruction Format.
