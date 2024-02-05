@@ -2,7 +2,7 @@ add_llvm_component_group(ToyISA)
 
 set(LLVM_TARGET_DEFINITIONS ToyISA.td)
 
-
+tablegen(LLVM ToyISAGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM ToyISAGenCallingConv.inc -gen-callingconv)
 
 

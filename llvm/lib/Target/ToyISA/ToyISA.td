@@ -19,3 +19,4 @@ include "llvm/Target/Target.td"
 // ToyISA Subtarget features.
 //
 
+include "ToyISARegisterInfo.td"
